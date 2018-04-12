@@ -1,0 +1,26 @@
+---
+- name: Lab3 - All server setup
+  hosts: all
+  become: yes
+  tasks:
+    - name: Configure selinux to permissive
+      selinux:
+        policy: targeted
+        state: permissive
+    - name: Copy motd template
+      template: src=motd.j2 dest=/etc/motd 
+     - name: Install facter  
+      package: name=facter state=present
+- name: Lab3 - Web server setup
+  hosts: web
+  become: yes
+  tasks:
+    - name: Install Apache
+      yum: name=httpd state=present
+      notify: Restart Apache
+    - name: Copy Index.html template
+      template: src=index.html.j2 dest=/var/www/html/index.htm
+  handlers:
+    - name: Restart Apache
+      service: name=httpd state=restarted enabled=yes
+

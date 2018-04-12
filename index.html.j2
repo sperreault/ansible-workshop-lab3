@@ -1,0 +1,4 @@
+Web Servers<br>
+{% for server in groups.web %}
+{{ hostvars[server].ansible_hostname }} {{ hostvars[server].ansible_default_ipv4.address }} - free memory: {{ hostvars[server].facter_memoryfree }}<br>
+{% endfor %}
