@@ -8,8 +8,8 @@
         policy: targeted
         state: permissive
     - name: Copy motd template
-      template: src=motd.j2 dest=/etc/motd 
-     - name: Install facter  
+      template: src=motd.j2 dest=/etc/motd
+    - name: Install facter
       package: name=facter state=present
 - name: Lab3 - Web server setup
   hosts: web
@@ -23,4 +23,3 @@
   handlers:
     - name: Restart Apache
       service: name=httpd state=restarted enabled=yes
-
